@@ -1,6 +1,7 @@
 package main.company;
 
 // Import my implementation of a LinkedList
+import main.company.utility.HashTable;
 import main.company.utility.Iterator;
 import main.company.utility.LinkedList;
 import main.company.utility.ArrayDeque;
@@ -19,83 +20,83 @@ public class Company {
 
 //    integers.print();
 
-    Executive CEO = new Executive();
-
-    FinanceManager financeManager = new FinanceManager();
-
-    SWManager SWM1 = new SWManager();
-    SWManager SWM2 = new SWManager();
-
-    SWEngineer SWE1 = new SWEngineer();
-    SWEngineer SWE2 = new SWEngineer();
-    SWEngineer SWE3 = new SWEngineer();
-    SWEngineer SWE4 = new SWEngineer();
-    SWEngineer SWE5 = new SWEngineer();
-    SWEngineer SWE6 = new SWEngineer();
-
-    Accountant Acc1 = new Accountant();
-    Accountant Acc2 = new Accountant();
-
-    Company company = new Company();
-
-    // Set the CEO of the main.company
-    company.setCEO(CEO);
-
-    // Hire all employees
-    company.hireEmployee(financeManager, CEO);
-    company.hireEmployee(SWM1, CEO);
-
-    // Set second software manager to report to the first software manager for testing purposes
-    company.hireEmployee(SWM2, SWM1);
-
-    // Theoretically let the first software manager to be the senior manager
-    company.hireEmployee(SWE1, SWM1);
-    company.hireEmployee(SWE2, SWM1);
-    company.hireEmployee(SWE3, SWM1);
-    company.hireEmployee(SWE4, SWM1);
-
-    company.hireEmployee(SWE5, SWM2);
-    company.hireEmployee(SWE6, SWM2);
-
-    company.hireEmployee(Acc1, financeManager);
-    company.hireEmployee(Acc2, financeManager);
-
-    SWEngineer SWE7 = new SWEngineer();
-    SWEngineer SWE8 = new SWEngineer();
-    SWEngineer SWE9 = new SWEngineer();
-    SWEngineer SWE10 = new SWEngineer();
-
-    SWM1.setPerformanceScore(3);
-    SWM2.setPerformanceScore(17);
-    SWE1.setPerformanceScore(10);
-    SWE2.setPerformanceScore(7);
-    SWE3.setPerformanceScore(8);
-    SWE4.setPerformanceScore(5);
-    SWE5.setPerformanceScore(6);
-    SWE6.setPerformanceScore(13);
-    Acc1.setPerformanceScore(100);
-    Acc2.setPerformanceScore(20);
-
-    SWE7.setPerformanceScore(95);
-    SWE8.setPerformanceScore(96);
-    SWE9.setPerformanceScore(97);
-    SWE10.setPerformanceScore(98);
-
-//    main.company.employees.print();
-
-    company.addTopPerformer(SWM1);
-    company.addTopPerformer(SWM2);
-    company.addTopPerformer(SWE1);
-    company.addTopPerformer(SWE2);
-    company.addTopPerformer(SWE3);
-    company.addTopPerformer(SWE4);
-    company.addTopPerformer(SWE5);
-    company.addTopPerformer(SWE6);
-    company.addTopPerformer(Acc1);
-    company.addTopPerformer(Acc2);
-    company.addTopPerformer(SWE7);
-    company.addTopPerformer(SWE8);
-    company.addTopPerformer(SWE9);
+//    Executive CEO = new Executive();
+//
+//    FinanceManager financeManager = new FinanceManager();
+//
+//    SWManager SWM1 = new SWManager();
+//    SWManager SWM2 = new SWManager();
+//
+//    SWEngineer SWE1 = new SWEngineer();
+//    SWEngineer SWE2 = new SWEngineer();
+//    SWEngineer SWE3 = new SWEngineer();
+//    SWEngineer SWE4 = new SWEngineer();
+//    SWEngineer SWE5 = new SWEngineer();
+//    SWEngineer SWE6 = new SWEngineer();
+//
+//    Accountant Acc1 = new Accountant();
+//    Accountant Acc2 = new Accountant();
+//
+//    Company company = new Company();
+//
+//    // Set the CEO of the main.company
+//    company.setCEO(CEO);
+//
+//    // Hire all employees
+//    company.hireEmployee(financeManager, CEO);
+//    company.hireEmployee(SWM1, CEO);
+//
+//    // Set second software manager to report to the first software manager for testing purposes
+//    company.hireEmployee(SWM2, SWM1);
+//
+//    // Theoretically let the first software manager to be the senior manager
+//    company.hireEmployee(SWE1, SWM1);
+//    company.hireEmployee(SWE2, SWM1);
+//    company.hireEmployee(SWE3, SWM1);
+//    company.hireEmployee(SWE4, SWM1);
+//
+//    company.hireEmployee(SWE5, SWM2);
+//    company.hireEmployee(SWE6, SWM2);
+//
+//    company.hireEmployee(Acc1, financeManager);
+//    company.hireEmployee(Acc2, financeManager);
+//
+//    SWEngineer SWE7 = new SWEngineer();
+//    SWEngineer SWE8 = new SWEngineer();
+//    SWEngineer SWE9 = new SWEngineer();
+//    SWEngineer SWE10 = new SWEngineer();
+//
+//    SWM1.setPerformanceScore(3);
+//    SWM2.setPerformanceScore(17);
+//    SWE1.setPerformanceScore(10);
+//    SWE2.setPerformanceScore(7);
+//    SWE3.setPerformanceScore(8);
+//    SWE4.setPerformanceScore(5);
+//    SWE5.setPerformanceScore(6);
+//    SWE6.setPerformanceScore(13);
+//    Acc1.setPerformanceScore(100);
+//    Acc2.setPerformanceScore(20);
+//
+//    SWE7.setPerformanceScore(95);
+//    SWE8.setPerformanceScore(96);
+//    SWE9.setPerformanceScore(97);
+//    SWE10.setPerformanceScore(98);
+//
+////    main.company.employees.print();
+//
+//    company.addTopPerformer(SWM1);
+//    company.addTopPerformer(SWM2);
+//    company.addTopPerformer(SWE1);
+//    company.addTopPerformer(SWE2);
+//    company.addTopPerformer(SWE3);
+//    company.addTopPerformer(SWE4);
+//    company.addTopPerformer(SWE5);
+//    company.addTopPerformer(SWE6);
+//    company.addTopPerformer(Acc1);
+//    company.addTopPerformer(Acc2);
+//    company.addTopPerformer(SWE7);
+//    company.addTopPerformer(SWE8);
+//    company.addTopPerformer(SWE9);
 //    main.company.addTopPerformer(SWE10);
 //    main.company.addTopPerformer(SWE10);
 //    main.company.addTopPerformer(SWE10);

@@ -47,7 +47,7 @@ public class HashTable<K, V> implements MapADT<K, V> {
     if (table[hashIndex] != null) {
       HashEntry<K, V> pointer = table[hashIndex];
 
-      while(pointer.next != null) {
+      while(pointer != null) {
 
         if (pointer.key == key || pointer.key.equals(key)) {
           return pointer.value;
@@ -111,11 +111,14 @@ public class HashTable<K, V> implements MapADT<K, V> {
 
   @Override
   public void empty() {
-    for (HashEntry<K, V> kvHashEntry : table) {
+    for (int i = 0; i < table.length; i ++) {
 
       // If table pointer is not empty, then empty bound linked list
-      if (kvHashEntry != null) {
-        HashEntry<K, V> pointer = kvHashEntry;
+      if (table[i] != null) {
+        HashEntry<K, V> pointer = table[i];
+
+        // Delete the existing key from the hashtable
+        table[i] = null;
 
         while (pointer != null) {
           HashEntry<K, V> temp = pointer.next;
@@ -147,10 +150,11 @@ public class HashTable<K, V> implements MapADT<K, V> {
   }
 
   private int hash(K k) {
-    // Hashcode can be negative, that is why we need extra hashing
-    return k.hashCode() % table.length;
+    // Preform mathematical equivalent of math modulo operation
+    return Math.floorMod(k.hashCode(), table.length);
   }
 
+  // Iterator is implemented wrong, later fix it
   @Override
   public Iterator<K> iterator() {
     return new HashTableIterator();
