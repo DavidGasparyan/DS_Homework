@@ -56,6 +56,11 @@ public class DoubleLinkedList<T> implements ListADT<T> {
   }
 
   @Override
+  public int size() {
+    return 0;
+  }
+
+  @Override
   public void addFirst(T e) {
     if (first == null) {
       last = first = new Node(e);

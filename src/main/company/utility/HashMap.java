@@ -38,6 +38,11 @@ public class HashMap<K, V> implements MapADT<K, V> {
   }
 
   @Override
+  public int size() {
+    return 0;
+  }
+
+  @Override
   public Iterator<K> iterator() {
     return null;
   }

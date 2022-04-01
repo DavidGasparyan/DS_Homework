@@ -127,6 +127,11 @@ public class ArrayList<T> implements ListADT<T> {
     }
   }
 
+  @Override
+  public int size() {
+    return 0;
+  }
+
   private void resize() {
     if (size < arr.length) return;
 
