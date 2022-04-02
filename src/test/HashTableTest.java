@@ -34,7 +34,7 @@ class HashTableTest {
     @Description("At start hashtable must empty")
     void isEmpty() {
       assertTrue(hashtable.isEmpty());
-      assertEquals(1, hashtable.size());
+      assertEquals(0, hashtable.size());
     }
 
     @Test
@@ -62,12 +62,10 @@ class HashTableTest {
       private int index = random.nextInt();
       private String value = "David";
 
-      @Test
       @BeforeEach()
       @Description("Add one element")
-      void addOneElement() {
-        assertEquals(value, hashtable.put(index, value));
-
+      void populateHashTable() {
+        hashtable.put(index, value);
       }
 
       @Test
@@ -112,12 +110,11 @@ class HashTableTest {
       private int[] indexes = {random.nextInt(), random.nextInt(), random.nextInt(), random.nextInt()};
       private String[] values = {"David", "Janna", "Petros", "Ani"};
 
-      @Test
       @BeforeEach()
       @Description("Add elements")
       void addMultipleElements() {
         for (int i = 0; i < values.length; i++) {
-          assertEquals(values[i], hashtable.put(indexes[i], values[i]));
+          hashtable.put(indexes[i], values[i]);
         }
       }
 
