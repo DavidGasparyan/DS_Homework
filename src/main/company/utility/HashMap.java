@@ -17,6 +17,11 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
     Entry<?, ?> entry = bucket.put(key, new Entry<>(key, value));
 
     size = bucket.size();
+
+    if (entry == null) {
+      return null;
+    }
+
     return (V) entry.getValue();
   }
 
@@ -38,6 +43,11 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
     Entry<?, ?> entry = bucket.remove(key);
 
     size = bucket.size();
+
+    if (entry == null) {
+      return null;
+    }
+
     return (V) entry.getValue();
   }
 

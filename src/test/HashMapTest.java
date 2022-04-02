@@ -1,6 +1,7 @@
-package main.company.utility;
+package test;
 
 import main.company.SWEngineer;
+import main.company.utility.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -85,7 +86,7 @@ class HashMapTest {
         class WhenAddSimilarTest {
           @Test
           void addSimilarSWE() {
-            assertNull(hashmap.put(SWE, name));
+            assertEquals(name, hashmap.put(SWE, name));
           }
 
           @Test
