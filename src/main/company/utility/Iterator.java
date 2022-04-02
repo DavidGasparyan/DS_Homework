@@ -1,6 +1,6 @@
 package main.company.utility;
 
-public interface Iterator<T> {
+public interface Iterator<E> {
   public boolean hasNext();
-  public T next();
+  public E next();
 }

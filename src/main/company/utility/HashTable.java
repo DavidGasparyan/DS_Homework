@@ -1,6 +1,6 @@
 package main.company.utility;
 
-public class HashTable<K, V> implements MapADT<K, V> {
+public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEntry<K, V>> {
   private final HashEntry<?, ?>[] table;
   private int size = 0;
 
@@ -166,63 +166,65 @@ public class HashTable<K, V> implements MapADT<K, V> {
 
   // Iterator is implemented wrong, later fix it
   @Override
-  public Iterator<K> iterator() {
+  public Iterator<HashEntry<K, V>> iterator() {
     return new HashTableIterator();
   }
 
-  protected class HashTableIterator implements Iterator<K> {
+  protected class HashTableIterator implements Iterator<HashEntry<K, V>> {
     private int index = -1;
     private HashEntry<K, V> pointer;
-    private HashEntry<K, V> entry;
 
     public HashTableIterator() {
       /*
         If table pointer is not empty, then set the first index
        */
-//      for (int i = 0; i < table.length; i++) {
-//        if (table[i] != null) {
-//          index = i;
-//          entry = pointer = table[i];
-//          break;
-//        }
-//      }
+      for (int i = 0; i < table.length; i++) {
+        if (table[i] != null) {
+          index = i;
+
+          pointer = (HashEntry<K, V>) table[i];
+
+          break;
+        }
+      }
     }
 
     @Override
     public boolean hasNext() {
-//      if (index == -1) {
-//        return false;
-//      }
-//
-//      /*
-//        If current linked list entry is null, then we reached its end.
-//        Continue table traversing until we find next available index.
-//       */
-//      if (pointer == null) {
-//        for (int i = index + 1; i < table.length; i++) {
-//          // If we found hit on a table, set new table pointer and set new entry pointer.
-//          if (table[i] != null) {
-//            index = i;
-//            entry = pointer = table[i];
-//
-//            return true;
-//          }
-//        }
-//
-//        // If we haven't found anything in the table. Then return
-//
-//        return false;
-//      }
-//
-//      entry = pointer;
-//      pointer = pointer.next;
-//
+      if (index == -1) {
+        return false;
+      }
+
+      /*
+        If current linked list entry is null, then we reached its end.
+        Continue table traversing until we find next available index.
+       */
+      if (pointer == null) {
+        for (int i = index + 1; i < table.length; i++) {
+          // If we found hit on a table, set new table pointer and set new entry pointer.
+          if (table[i] != null) {
+            index = i;
+
+            pointer = (HashEntry<K, V>) table[i];
+
+            return true;
+          }
+        }
+
+        // If we haven't found anything in the table. Then return
+
+        return false;
+      }
+
       return true;
     }
 
     @Override
-    public K next() {
-      return entry.key;
+    public HashEntry<K, V> next() {
+      HashEntry<K, V> temp = pointer;
+      pointer = (HashEntry<K, V>) pointer.next;
+
+      return temp;
     }
   }
 
@@ -235,6 +237,18 @@ public class HashTable<K, V> implements MapADT<K, V> {
       this.key = key;
       this.value = value;
       this.next = null;
+    }
+
+    public K getKey() {
+      return key;
+    }
+
+    public V getValue() {
+      return value;
+    }
+
+    public HashEntry<K, V> getNext() {
+      return (HashEntry<K, V>) next;
     }
   }
 }

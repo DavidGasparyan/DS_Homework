@@ -12,6 +12,21 @@ public class Company {
   private Executive CEO;
 
   public static void main(String[] args) {
+    HashTable<Integer, String> hashtable = new HashTable<>();
+
+    hashtable.put(1, "David");
+    hashtable.put(2, "Poxos");
+    hashtable.put(3, "Petros");
+    hashtable.put(4, "Ani");
+    hashtable.put(5, "Janna");
+
+    Iterator<HashTable.HashEntry<Integer, String>> iterator = hashtable.iterator();
+
+    while (iterator.hasNext()) {
+      HashTable.HashEntry<Integer, String> item = iterator.next();
+      System.out.println(item.getKey() + ", " + item.getValue());
+    }
+
 //    ArrayDeque<Integer> integers = new ArrayDeque<>();
 //
 //    for (int i = 0; i < 10; i ++) {

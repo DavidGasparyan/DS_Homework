@@ -1,6 +1,6 @@
 package main.company.utility;
 
-public interface CollectionADT<T> extends Iterable<T> {
+public interface CollectionADT<T> {
   boolean isEmpty();
 
   void empty();

@@ -1,6 +1,6 @@
 package main.company.utility;
 
-public class HashSet<E> implements SetADT<E> {
+public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
   private final Object dummyObject = new Object();
   private HashTable<E, Object> hashTable;
   private int size = 0;
@@ -46,7 +46,7 @@ public class HashSet<E> implements SetADT<E> {
 
   @Override
   public void print() {
-    hashTable.print();
+//    hashTable.
   }
 
   @Override
@@ -55,8 +55,17 @@ public class HashSet<E> implements SetADT<E> {
   }
 
   @Override
-  public Iterator<E> iterator() {
+  public Iterator<Entry<E>> iterator() {
     return null;
   }
 
+  public static class Entry<E> {
+    E element;
+    Entry<E> next;
+
+    public Entry(E e) {
+      element = e;
+      next = null;
+    }
+  }
 }

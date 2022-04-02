@@ -1,6 +1,6 @@
 package main.company.utility;
 
-public class DoubleLinkedList<T> implements ListADT<T> {
+public class DoubleLinkedList<T> implements ListADT<T>, Iterable<T> {
   private Node first;
   private Node last;
   private int size;
