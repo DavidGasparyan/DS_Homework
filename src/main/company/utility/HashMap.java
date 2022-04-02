@@ -1,36 +1,103 @@
 package main.company.utility;
 
 public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>> {
-  private HashTable<K, V> hashTable;
+  private final Entry<?, ?>[] elementsBucket;
   private int size = 0;
 
   public HashMap() {
-    hashTable = new HashTable<>();
+    elementsBucket = new Entry[16];
   }
 
   public HashMap(int initialSize) {
-    hashTable = new HashTable<>(initialSize);
+    elementsBucket = new Entry[initialSize];
   }
 
   @Override
   public V put(K key, V value) {
-    if (key == null || value == null) return null;
+    int hashIndex = hash(key);
 
-    return hashTable.put(key, value);
+    final Entry<K, V> entry = new Entry<>(key, value);
+
+    if (elementsBucket[hashIndex] == null) {
+      elementsBucket[hashIndex] = entry;
+
+      size ++;
+
+      return entry.value;
+    }
+
+    Entry<?, ?> pointer =  elementsBucket[hashIndex];
+
+    while(pointer.next != null) {
+
+      if (pointer.key == key || pointer.key.equals(key)) {
+        // Exit if the key already exits, don't update
+        // anything and don't increase the size
+        return value;
+      }
+
+      pointer = pointer.next;
+    }
+
+    pointer.next = entry;
+    size ++;
+
+    return entry.value;
   }
 
   @Override
   public V get(K key) {
-    if (key == null) return null;
+    int hashIndex = hash(key);
 
-    return hashTable.get(key);
+    if (elementsBucket[hashIndex] != null) {
+      Entry<?, ?> pointer = elementsBucket[hashIndex];
+
+      while(pointer != null) {
+
+        if (pointer.key == key || pointer.key.equals(key)) {
+          return (V) pointer.value;
+        }
+
+        pointer = pointer.next;
+      }
+    }
+
+    return null;
   }
 
   @Override
   public V remove(K key) {
-    if (key == null ) return null;
+    int hashIndex = hash(key);
 
-    return hashTable.remove(key);
+    if (elementsBucket[hashIndex] != null) {
+
+      Entry<?, ?> previous = null;
+      Entry<?, ?> current = elementsBucket[hashIndex];
+
+      while (current != null) {
+
+        if (current.key == key || current.key.equals(key)) {
+          V tempValue = (V) current.value;
+
+          if (previous == null) {
+            elementsBucket[hashIndex] = current.next;
+          } else {
+            previous.next = current.next;
+            // Help garbage collector
+            current = null;
+          }
+
+          size--;
+
+          return tempValue;
+        }
+
+        previous = current;
+        current = current.next;
+      }
+    }
+
+    return null;
   }
 
   @Override
@@ -40,37 +107,122 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
 
   @Override
   public boolean isEmpty() {
-    return hashTable.isEmpty();
+    return size == 0;
   }
 
   @Override
-  public void empty() { hashTable.empty(); }
+  public void empty() {
+    for (int i = 0; i < elementsBucket.length; i ++) {
+
+      // If table pointer is not empty, then empty bound linked list
+      if (elementsBucket[i] != null) {
+        Entry<?, ?> pointer = elementsBucket[i];
+
+        // Delete the existing key from the hashtable
+        elementsBucket[i] = null;
+
+        while (pointer != null) {
+          Entry<?, ?> temp = pointer.next;
+
+          pointer.next = null;
+          // Help garbage collector
+          pointer = null;
+
+          pointer = temp;
+        }
+      }
+    }
+
+    size = 0;
+  }
 
   @Override
-  public void print() { hashTable.print(); }
+  public void print() {
+    for (Entry<?, ?> element : elementsBucket) {
+
+      // If table pointer is not empty, then traverse the linked list
+      if (element != null) {
+        Entry<?, ?> pointer = element;
+
+        while (pointer != null) {
+          System.out.println(pointer.value);
+          pointer = pointer.next;
+        }
+      }
+    }
+  }
 
   @Override
-  public int size() { return hashTable.size(); }
+  public int size() {
+    return size;
+  }
+
+  private int hash(K key) {
+    return Math.floorMod(key.hashCode(), elementsBucket.length);
+  }
 
   @Override
   public Iterator<Entry<K, V>> iterator() {
-    return null;
-  }
-
-  public Iterator<Entry<K, V>> entryIterator() {
     return new EntryIterator();
   }
 
   protected class EntryIterator implements Iterator<Entry<K, V>> {
+    private int index = -1;
+    private Entry<?, ?> pointer;
+
+
+    public EntryIterator() {
+/*
+        If table pointer is not empty, then set the first index
+       */
+      for (int i = 0; i < elementsBucket.length; i++) {
+        if (elementsBucket[i] != null) {
+          index = i;
+
+          pointer = elementsBucket[i];
+
+          break;
+        }
+      }
+    }
 
     @Override
     public boolean hasNext() {
-      return false;
+      if (index == -1) {
+        return false;
+      }
+
+      /*
+        If current linked list entry is null, then we reached its end.
+        Continue table traversing until we find next available index.
+       */
+      if (pointer == null) {
+        for (int i = index + 1; i < elementsBucket.length; i++) {
+          // If we found hit on a table, set new table pointer and set new entry pointer.
+          if (elementsBucket[i] != null) {
+            index = i;
+
+            pointer = elementsBucket[i];
+
+            return true;
+          }
+        }
+
+        // If we haven't found anything in the table. Then return
+
+        return false;
+      }
+
+      return true;
     }
 
     @Override
     public Entry<K, V> next() {
-      return null;
+      @SuppressWarnings("unchecked")
+      Entry<K, V> temp = (Entry<K, V>) pointer;
+      pointer = pointer.next;
+
+      return temp;
     }
   }
 
@@ -83,6 +235,18 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
       this.key = key;
       this.value = value;
       this.next = null;
+    }
+
+    public K getKey() {
+      return key;
+    }
+
+    public V getValue() {
+      return value;
+    }
+
+    public Entry<K, V> getNext() {
+      return (Entry<K, V>) next;
     }
   }
 

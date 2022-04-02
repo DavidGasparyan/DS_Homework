@@ -50,16 +50,15 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
     int hashIndex = hash(key);
 
     if (table[hashIndex] != null) {
-      @SuppressWarnings("unchecked")
-      HashEntry<K, V> pointer = (HashEntry<K, V>) table[hashIndex];
+      HashEntry<?, ?> pointer = table[hashIndex];
 
       while(pointer != null) {
 
         if (pointer.key == key || pointer.key.equals(key)) {
-          return  pointer.value;
+          return (V) pointer.value;
         }
 
-        pointer = (HashEntry<K, V>) pointer.next;
+        pointer = pointer.next;
       }
     }
 
@@ -72,14 +71,14 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
     if (table[hashIndex] != null) {
 
-      HashEntry<K, V> previous = null;
-      @SuppressWarnings("unchecked")
-      HashEntry<K, V> current = (HashEntry<K, V>) table[hashIndex];
+      HashEntry<?, ?> previous = null;
+      HashEntry<?, ?> current = table[hashIndex];
 
       while(current != null) {
 
         if (current.key == key || current.key.equals(key)) {
-          V tempValue = current.value;
+          @SuppressWarnings("unchecked")
+          V tempValue = (V) current.value;
 
           if (previous == null) {
             table[hashIndex] = current.next;
@@ -95,7 +94,7 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
         }
 
         previous = current;
-        current = (HashEntry<K, V>) current.next;
+        current = current.next;
       }
     }
 
@@ -164,7 +163,6 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
     return Math.floorMod(k.hashCode(), table.length);
   }
 
-  // Iterator is implemented wrong, later fix it
   @Override
   public Iterator<HashEntry<K, V>> iterator() {
     return new HashTableIterator();
@@ -172,7 +170,7 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
   protected class HashTableIterator implements Iterator<HashEntry<K, V>> {
     private int index = -1;
-    private HashEntry<K, V> pointer;
+    private HashEntry<?, ?> pointer;
 
     public HashTableIterator() {
       /*
@@ -182,7 +180,7 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
         if (table[i] != null) {
           index = i;
 
-          pointer = (HashEntry<K, V>) table[i];
+          pointer = table[i];
 
           break;
         }
@@ -205,7 +203,7 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
           if (table[i] != null) {
             index = i;
 
-            pointer = (HashEntry<K, V>) table[i];
+            pointer = table[i];
 
             return true;
           }
@@ -221,8 +219,9 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
     @Override
     public HashEntry<K, V> next() {
-      HashEntry<K, V> temp = pointer;
-      pointer = (HashEntry<K, V>) pointer.next;
+      @SuppressWarnings("unchecked")
+      HashEntry<K, V> temp = (HashEntry<K, V>) pointer;
+      pointer = pointer.next;
 
       return temp;
     }

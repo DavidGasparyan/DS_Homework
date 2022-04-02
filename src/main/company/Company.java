@@ -1,10 +1,7 @@
 package main.company;
 
 // Import my implementation of a LinkedList
-import main.company.utility.HashTable;
-import main.company.utility.Iterator;
-import main.company.utility.LinkedList;
-import main.company.utility.ArrayDeque;
+import main.company.utility.*;
 
 public class Company {
   private LinkedList<Employee> employees = new LinkedList<>();
@@ -12,18 +9,25 @@ public class Company {
   private Executive CEO;
 
   public static void main(String[] args) {
-    HashTable<Integer, String> hashtable = new HashTable<>();
+    HashMap<SWEngineer, String> hashmap = new HashMap<>();
 
-    hashtable.put(1, "David");
-    hashtable.put(2, "Poxos");
-    hashtable.put(3, "Petros");
-    hashtable.put(4, "Ani");
-    hashtable.put(5, "Janna");
+    SWEngineer SWE1 = new SWEngineer();
+    SWEngineer SWE2 = new SWEngineer();
+    SWEngineer SWE3 = new SWEngineer();
+    SWEngineer SWE4 = new SWEngineer();
+    SWEngineer SWE5 = new SWEngineer();
+    SWEngineer SWE6 = new SWEngineer();
 
-    Iterator<HashTable.HashEntry<Integer, String>> iterator = hashtable.iterator();
+    hashmap.put(SWE1, "David");
+    hashmap.put(SWE2, "Poxos");
+    hashmap.put(SWE3, "Petros");
+    hashmap.put(SWE4, "Ani");
+    hashmap.put(SWE5, "Janna");
+
+    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
 
     while (iterator.hasNext()) {
-      HashTable.HashEntry<Integer, String> item = iterator.next();
+      HashMap.Entry<SWEngineer, String>item = iterator.next();
       System.out.println(item.getKey() + ", " + item.getValue());
     }
 
