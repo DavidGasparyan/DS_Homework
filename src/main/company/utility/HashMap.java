@@ -54,7 +54,15 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
 
   @Override
   public HashSet<K> keySet() {
-    return null;
+    Iterator<HashTable.HashEntry<K, Entry<?, ?>>> iterator = bucket.iterator();
+    HashSet<K> hashSet = new HashSet<>();
+
+    while (iterator.hasNext()) {
+      HashTable.HashEntry<K, Entry<?, ?>> item = iterator.next();
+      hashSet.add(item.getKey());
+    }
+
+    return hashSet;
   }
 
   @Override

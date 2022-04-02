@@ -27,14 +27,16 @@ public class Company {
     hashmap.put(SWE3, "Petros");
     hashmap.put(SWE4, "Ani");
 
-    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
+//    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
+//
+//    while (iterator.hasNext()) {
+//      HashMap.Entry<SWEngineer, String>item = iterator.next();
+//      System.out.println(item.getKey() + ", " + item.getValue());
+//    }
 
-    while (iterator.hasNext()) {
-      HashMap.Entry<SWEngineer, String>item = iterator.next();
-      System.out.println(item.getKey() + ", " + item.getValue());
-    }
+    hashmap.keySet().print();
 
-    HashTable<Integer, String> table = new HashTable<>();
+//    HashTable<Integer, String> table = new HashTable<>();
 
 //    table.put(1, "David");
 //    table.put(1, "David");
