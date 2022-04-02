@@ -22,19 +22,19 @@ public class Company {
     hashmap.put(SWE1, "David");
     hashmap.put(SWE1, "David");
     hashmap.put(SWE1, "David");
-    hashmap.put(SWE1, "David");
+    hashmap.put(SWE1, "Ando");
     hashmap.put(SWE2, "Poxos");
     hashmap.put(SWE3, "Petros");
     hashmap.put(SWE4, "Ani");
 
-//    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
-//
-//    while (iterator.hasNext()) {
-//      HashMap.Entry<SWEngineer, String>item = iterator.next();
-//      System.out.println(item.getKey() + ", " + item.getValue());
-//    }
+    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
 
-    hashmap.keySet().print();
+    while (iterator.hasNext()) {
+      HashMap.Entry<SWEngineer, String>item = iterator.next();
+      System.out.println(item.getKey() + ", " + item.getValue());
+    }
+
+//    hashmap.keySet().print();
 
 //    HashTable<Integer, String> table = new HashTable<>();
 

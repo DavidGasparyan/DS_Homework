@@ -22,8 +22,8 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
     final HashEntry<K, V> entry = new HashEntry<>(key, value);
 
-    HashEntry<?, ?> previous = null;
-    HashEntry<?, ?> pointer = table[hashIndex];
+    HashEntry<K, V> previous = null;
+    HashEntry<K, V> pointer = (HashEntry<K, V>) table[hashIndex];
 
     // If table is empty insert as first value
     if (pointer == null) {
@@ -35,13 +35,15 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
     // Traverse full linked list of table
     while(pointer != null) {
-      // If element already exists no need to add, just return itself
+      // If element already exists no need to add, just return itself and update the value
       if (pointer.key == key || pointer.key.equals(key)) {
-        return null;
+        pointer.value = value;
+
+        return value;
       }
 
       previous = pointer;
-      pointer = pointer.next;
+      pointer = (HashEntry<K, V>) pointer.next;
     }
 
     // When current is null and list is fully traversed assign next
