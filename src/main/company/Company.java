@@ -20,19 +20,33 @@ public class Company {
     SWEngineer SWE6 = new SWEngineer();
 
     hashmap.put(SWE1, "David");
+    hashmap.put(SWE1, "David");
+    hashmap.put(SWE1, "David");
+    hashmap.put(SWE1, "David");
     hashmap.put(SWE2, "Poxos");
     hashmap.put(SWE3, "Petros");
     hashmap.put(SWE4, "Ani");
-    hashmap.put(SWE5, "Janna");
 
-//    hashmap.print();
-//
     Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
 
     while (iterator.hasNext()) {
       HashMap.Entry<SWEngineer, String>item = iterator.next();
       System.out.println(item.getKey() + ", " + item.getValue());
     }
+
+    HashTable<Integer, String> table = new HashTable<>();
+
+//    table.put(1, "David");
+//    table.put(1, "David");
+//    table.put(1, "David");
+//    table.put(1, "David");
+//    table.put(1, "David");
+//    table.put(1, "David");
+//    table.put(2, "A");
+//    table.put(3, "B");
+//    table.put(2, "C");
+//
+//    table.print();
 
 //    ArrayDeque<Integer> integers = new ArrayDeque<>();
 //

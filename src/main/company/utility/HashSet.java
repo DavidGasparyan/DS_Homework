@@ -25,8 +25,7 @@ public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
 
   @Override
   public boolean contains(E value) {
-//    return hashTable.contains(value);
-    return false;
+    return hashTable.containsKey(value);
   }
 
   @Override
@@ -46,7 +45,13 @@ public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
 
   @Override
   public void print() {
-//    hashTable.
+    Iterator<HashTable.HashEntry<E, Object>> iterator = hashTable.iterator();
+
+    while (iterator.hasNext()) {
+      HashTable.HashEntry<E, Object> item = iterator.next();
+
+      System.out.println(item.getKey());
+    }
   }
 
   @Override

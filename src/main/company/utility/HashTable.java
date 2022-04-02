@@ -22,28 +22,30 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
     final HashEntry<K, V> entry = new HashEntry<>(key, value);
 
-    // If table is empty insert as first value
-    if (table[hashIndex] == null) {
+    HashEntry<?, ?> previous = null;
+    HashEntry<?, ?> pointer = table[hashIndex];
 
+    // If table is empty insert as first value
+    if (pointer == null) {
       table[hashIndex] = entry;
 
       size ++;
       return entry.value;
     }
 
-    HashEntry<?, ?> pointer = table[hashIndex];
-
-    while(pointer.next != null) {
+    // Traverse full linked list of table
+    while(pointer != null) {
       // If element already exists no need to add, just return itself
-      if (pointer.value == value || pointer.value.equals(value)) {
-        return value;
+      if (pointer.key == value || pointer.key.equals(key)) {
+        return null;
       }
 
+      previous = pointer;
       pointer = pointer.next;
     }
 
-    // When current is null and list is fully traversed assign next if last element
-    pointer.next = entry;
+    // When current is null and list is fully traversed assign next
+    previous.next = entry;
     size ++;
 
     return entry.value;
@@ -152,6 +154,34 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
     }
 
     size = 0;
+  }
+
+  public boolean containsValue(V value) {
+    Iterator<HashEntry<K, V>> iterator = iterator();
+
+    while(iterator.hasNext()) {
+      HashEntry<K, V> entry = iterator.next();
+
+      if (entry.value == value || entry.value.equals(value)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public boolean containsKey(K key) {
+    Iterator<HashEntry<K, V>> iterator = iterator();
+
+    while(iterator.hasNext()) {
+      HashEntry<K, V> entry = iterator.next();
+
+      if (entry.key == key || entry.key.equals(key)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   @Override
