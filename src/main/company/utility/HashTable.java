@@ -37,7 +37,6 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
     while(pointer != null) {
       // If element already exists no need to add, just return itself
       if (pointer.key == key || pointer.key.equals(key)) {
-        System.out.println("here");
         return null;
       }
 
