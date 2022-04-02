@@ -6,11 +6,12 @@ import main.company.utility.*;
 public class Company {
   private LinkedList<Employee> employees = new LinkedList<>();
   private ArrayDeque<Employee> top10performers = new ArrayDeque<>();
+  private HashMap<Employee, LinkedList<Employee>> mentors;
   private Executive CEO;
 
   public static void main(String[] args) {
     HashMap<SWEngineer, String> hashmap = new HashMap<>();
-
+//
     SWEngineer SWE1 = new SWEngineer();
     SWEngineer SWE2 = new SWEngineer();
     SWEngineer SWE3 = new SWEngineer();
@@ -24,6 +25,8 @@ public class Company {
     hashmap.put(SWE4, "Ani");
     hashmap.put(SWE5, "Janna");
 
+//    hashmap.print();
+//
     Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
 
     while (iterator.hasNext()) {
@@ -165,6 +168,43 @@ public class Company {
 
       top10performers.popFront();
     }
+  }
+
+  public boolean enableMentorship(Employee mentor, Employee mentee) {
+    LinkedList<Employee> mentees = mentor.getMentees();
+
+    if (mentees.size() < 3) {
+      mentees.addLast(mentee);
+      mentors.put(mentor, mentees);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  public Employee getMentor(Employee mentee) {
+    Iterator<HashMap.Entry<Employee, LinkedList<Employee>>> hashMapIterator = mentors.iterator();
+
+    while(hashMapIterator.hasNext()) {
+      HashMap.Entry<Employee, LinkedList<Employee>> entry = hashMapIterator.next();
+
+      Employee mentor = entry.getKey();
+      LinkedList<Employee> mentees = entry.getValue();
+
+
+      Iterator<Employee> employeeListIterator = mentees.iterator();
+
+      while (employeeListIterator.hasNext()) {
+        Employee employee = employeeListIterator.next();
+
+        if(employee == mentee || employee.equals(mentee)) {
+          return mentor;
+        }
+      }
+    }
+
+    return null;
   }
 
 //  public ArrayList<Employee> getTeam(Manager manager) {

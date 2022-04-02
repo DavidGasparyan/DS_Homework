@@ -1,10 +1,13 @@
 package main.company;
 
+import main.company.utility.LinkedList;
+
 public abstract class Employee {
   int performanceScore;
   private String name;
   private String surname;
   private String id;
+  private LinkedList<Employee> mentees;
 
   public void doWork() {
     System.out.println("Employee does general work");
@@ -30,5 +33,9 @@ public abstract class Employee {
             ", surname='" + surname + '\'' +
             ", id='" + id + '\'' +
             '}';
+  }
+
+  public LinkedList<Employee> getMentees() {
+    return mentees;
   }
 }

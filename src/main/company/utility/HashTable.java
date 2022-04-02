@@ -14,6 +14,10 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
   @Override
   public V put(K key, V value) {
+    if (key == null || value == null) {
+      throw new IllegalArgumentException("Null value/key is not permitted in hashtable");
+    }
+
     int hashIndex = hash(key);
 
     final HashEntry<K, V> entry = new HashEntry<>(key, value);
@@ -47,6 +51,10 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
   @Override
   public V get(K key) {
+    if (key == null) {
+      throw new IllegalArgumentException("Null key is not permitted in hashtable");
+    }
+
     int hashIndex = hash(key);
 
     if (table[hashIndex] != null) {
@@ -67,6 +75,10 @@ public class HashTable<K, V> implements MapADT<K, V>, Iterable<HashTable.HashEnt
 
   @Override
   public V remove(K key) {
+    if (key == null) {
+      throw new IllegalArgumentException("Null key is not permitted in hashtable");
+    }
+
     int hashIndex = hash(key);
 
     if (table[hashIndex] != null) {
