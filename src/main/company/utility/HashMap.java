@@ -16,12 +16,7 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
   public V put(K key, V value) {
     Entry<?, ?> entry = bucket.put(key, new Entry<>(key, value));
 
-    // If entry returns null, then it means relationship already exits
-    if (entry == null) {
-      return null;
-    }
-
-    size ++;
+    size = bucket.size();
     return (V) entry.getValue();
   }
 
@@ -42,13 +37,7 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
   public V remove(K key) {
     Entry<?, ?> entry = bucket.remove(key);
 
-    // If entry returns null, then it means there is no relationship
-    // with such a key
-    if (entry == null) {
-      return null;
-    }
-
-    size --;
+    size = bucket.size();
     return (V) entry.getValue();
   }
 
