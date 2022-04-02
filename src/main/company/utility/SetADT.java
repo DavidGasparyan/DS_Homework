@@ -1,6 +1,6 @@
 package main.company.utility;
 
-public interface SetADT<T> extends CollectionADT<T> {
+public interface SetADT<T> extends CollectionADT<T>, Iterable<T> {
   boolean add(T value);
 
   boolean remove(T value);

@@ -1,8 +1,8 @@
 package main.company.utility;
 
-public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
+public class HashSet<E> implements SetADT<E> {
   private final Object dummyObject = new Object();
-  private HashTable<E, Object> hashTable;
+  private final HashTable<E, Object> hashTable;
   private int size = 0;
 
   public HashSet() {
@@ -15,12 +15,27 @@ public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
 
   @Override
   public boolean add(E value) {
-    return hashTable.put(value, dummyObject) == null;
+    Object temp = hashTable.put(value, dummyObject);
+
+    if (temp == null ) {
+      return false;
+    }
+
+    size ++;
+
+    return true;
   }
 
   @Override
   public boolean remove(E value) {
-    return hashTable.remove(value) == dummyObject;
+    Object temp = hashTable.remove(value);
+
+    if (dummyObject.equals(temp)) {
+      size --;
+      return true;
+    }
+
+    return false;
   }
 
   @Override
@@ -30,7 +45,23 @@ public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
 
   @Override
   public boolean equals(SetADT<E> s) {
-    return false;
+    Iterator<E> currentIterator = this.iterator();
+    
+    while (currentIterator.hasNext()) {
+      E currentItem = currentIterator.next();
+
+      Iterator<E> providedIterator = s.iterator();
+
+      while (providedIterator.hasNext()) {
+        E providedItem = providedIterator.next();
+
+        if (!currentItem.equals(providedItem) || currentItem != providedItem) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   @Override
@@ -41,6 +72,12 @@ public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
   @Override
   public void empty() {
     hashTable.empty();
+    size = 0;
+  }
+
+  @Override
+  public int size() {
+    return 0;
   }
 
   @Override
@@ -55,22 +92,27 @@ public class HashSet<E> implements SetADT<E>, Iterable<HashSet.Entry<E>> {
   }
 
   @Override
-  public int size() {
-    return 0;
+  public Iterator<E> iterator() {
+    return new HashSetIterator();
   }
 
-  @Override
-  public Iterator<Entry<E>> iterator() {
-    return null;
-  }
+  protected class HashSetIterator implements Iterator<E> {
+    Iterator<HashTable.HashEntry<E, Object>> iterator;
 
-  public static class Entry<E> {
-    E element;
-    Entry<E> next;
+    public HashSetIterator() {
+      iterator = hashTable.iterator();
+    }
 
-    public Entry(E e) {
-      element = e;
-      next = null;
+    @Override
+    public boolean hasNext() {
+      return iterator.hasNext();
+    }
+
+    @Override
+    public E next() {
+      HashTable.HashEntry<E, Object> hashentry = iterator.next();
+
+      return hashentry.getKey();
     }
   }
 }
