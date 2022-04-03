@@ -1,6 +1,7 @@
 package test;
 
 import jdk.jfr.Description;
+import main.company.SWEngineer;
 import main.company.utility.HashTable;
 import main.company.utility.Iterator;
 import org.junit.jupiter.api.BeforeEach;
@@ -130,34 +131,63 @@ class HashTableTest {
         assertFalse(hashtable.isEmpty());
       }
 
-      @Test
-      @Description("Remove elements from hash table, must return itself and hashtable must not be empty")
-      void removeElements() {
-        for (int i = 0; i < values.length; i ++) {
-          assertEquals(values[i], hashtable.remove(indexes[i]));
-          assertNull(hashtable.get(indexes[i]));
-          assertEquals(values.length - 1 - i, hashtable.size());
+      @Nested
+      class WhenFullHashTableIteratorTest {
+        Iterator<HashTable.HashEntry<Integer, String>> iterator;
 
-          if (i == values.length - 1) {
-            assertTrue(hashtable.isEmpty());
-          } else {
-            assertFalse(hashtable.isEmpty());
-          }
-
-          for (int j = i + 1; j < values.length; j ++) {
-            assertEquals(values[j], hashtable.get(indexes[j]));
-          }
+        @BeforeEach
+        void initIterator() {
+          iterator = hashtable.iterator();
         }
 
-        assertEquals(0, hashtable.size());
+        @Test
+        void startIteration() {
+          int index = 0;
+
+          while (iterator.hasNext()) {
+            HashTable.HashEntry<Integer, String> hashEntry = iterator.next();
+
+            assertTrue(hashtable.containsValue(hashEntry.getValue()));
+            assertTrue(hashtable.containsKey(hashEntry.getKey()));
+            index ++;
+          }
+
+          assertEquals(index, hashtable.size());
+        }
       }
 
-      @Test
-      @Description("Empty hashtable")
-      void emptyElements() {
-        hashtable.empty();
-        assertEquals(0, hashtable.size());
-        assertTrue(hashtable.isEmpty());
+      @Nested
+      class WhenDeleteOperationsTest {
+        @Test
+        @Description("Remove elements from hash table, must return itself and hashtable must be empty")
+        void removeElements() {
+          for (int i = 0; i < values.length; i ++) {
+            assertEquals(values[i], hashtable.remove(indexes[i]));
+            assertNull(hashtable.get(indexes[i]));
+            assertEquals(values.length - 1 - i, hashtable.size());
+
+            if (i == values.length - 1) {
+              assertTrue(hashtable.isEmpty());
+            } else {
+              assertFalse(hashtable.isEmpty());
+            }
+
+            for (int j = i + 1; j < values.length; j ++) {
+              assertEquals(values[j], hashtable.get(indexes[j]));
+            }
+          }
+
+          assertEquals(0, hashtable.size());
+          assertTrue(hashtable.isEmpty());
+        }
+
+        @Test
+        @Description("Empty hashtable")
+        void emptyElements() {
+          hashtable.empty();
+          assertEquals(0, hashtable.size());
+          assertTrue(hashtable.isEmpty());
+        }
       }
     }
   }
