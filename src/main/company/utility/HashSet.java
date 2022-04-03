@@ -17,11 +17,7 @@ public class HashSet<E> implements SetADT<E> {
   public boolean add(E value) {
     Object temp = hashTable.put(value, dummyObject);
 
-    if (temp == null ) {
-      return false;
-    }
-
-    size ++;
+    size = hashTable.size();
 
     return true;
   }
@@ -30,10 +26,7 @@ public class HashSet<E> implements SetADT<E> {
   public boolean remove(E value) {
     Object temp = hashTable.remove(value);
 
-    if (dummyObject.equals(temp)) {
-      size --;
-      return true;
-    }
+    size = hashTable.size();
 
     return false;
   }
@@ -77,7 +70,7 @@ public class HashSet<E> implements SetADT<E> {
 
   @Override
   public int size() {
-    return 0;
+    return size;
   }
 
   @Override

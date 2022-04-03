@@ -11,7 +11,7 @@ public class Company {
 
   public static void main(String[] args) {
     HashMap<SWEngineer, String> hashmap = new HashMap<>();
-//
+
     SWEngineer SWE1 = new SWEngineer("1", "David", "Gasparyan", "Junior");
     SWEngineer SWE2 = new SWEngineer("2", "Poxos", "Poxosyan", "Middle");
     SWEngineer SWE3 = new SWEngineer("3", "Anna", "Harutyunyan", "Junior");
@@ -34,7 +34,7 @@ public class Company {
 //      System.out.println(item.getKey() + ", " + item.getValue());
 //    }
 
-    hashmap.keySet().print();
+//    hashmap.keySet().print();
 
 //    HashTable<Integer, String> table = new HashTable<>();
 
