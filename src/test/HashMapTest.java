@@ -34,7 +34,7 @@ class HashMapTest {
 
     @Test
     void getHashMapRandElem() {
-      SWEngineer randomSWEngineer = new SWEngineer();
+      SWEngineer randomSWEngineer = new SWEngineer("1", "David", "Gasparyan", "Junior");
 
       assertNull(hashmap.remove(randomSWEngineer));
       assertNull(hashmap.get(randomSWEngineer));
@@ -50,7 +50,7 @@ class HashMapTest {
 
       @Test
       void addSWEngineer() {
-        SWEngineer SWE = new SWEngineer();
+        SWEngineer SWE = new SWEngineer("1", "David", "Gasparyan", "Junior");
 
         assertEquals("David", hashmap.put(SWE, "David"));
       }
@@ -62,7 +62,7 @@ class HashMapTest {
 
         @BeforeEach
         void addSWEngineer() {
-          SWE = new SWEngineer();
+          SWE = new SWEngineer("1", "David", "Gasparyan", "Junior");
 
           assertEquals(name, hashmap.put(SWE, name));
         }
@@ -114,7 +114,7 @@ class HashMapTest {
         @BeforeEach
         void addMultipleSWE() {
           for(int i = 0; i < swArr.length; i ++) {
-            swArr[i] = new SWEngineer();
+            swArr[i] = new SWEngineer("1", "David", "Gasparyan", "Junior");
           }
 
           for (int i = 0; i < swArr.length; i ++) {

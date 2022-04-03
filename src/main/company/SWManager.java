@@ -5,6 +5,14 @@ import java.util.ArrayList;
 public class SWManager extends SWEngineer implements Manager {
   private ArrayList<Employee> directReports = new ArrayList<Employee>();
 
+  public SWManager(String id, String name, String surname) {
+    super(id, name, surname);
+  }
+
+  public SWManager(String id, String name, String surname, String title) {
+    super(id, name, surname, title);
+  }
+
   public void mentorEmployee() {
     System.out.println("Doing some mentoring stuff");
   }

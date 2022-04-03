@@ -25,6 +25,14 @@ public abstract class Employee {
     this.performanceScore = performanceScore;
   }
 
+  protected Employee() {}
+
+  protected Employee(String id, String name, String surname) {
+    this.id = id;
+    this.name = name;
+    this.surname = surname;
+  }
+
   @Override
   public String toString() {
     return "Employee{" +
