@@ -2,6 +2,7 @@ package test;
 
 import main.company.SWEngineer;
 import main.company.utility.HashMap;
+import main.company.utility.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -136,6 +137,27 @@ class HashMapTest {
         void getSWEngineers() {
           for (int i = 0; i < swArr.length; i ++) {
             assertEquals(names[i], hashmap.get(swArr[i]));
+          }
+        }
+
+        @Nested
+        class WhenFullHashMapIteratorTest {
+          Iterator<HashMap.Entry<SWEngineer, String>> iterator;
+
+          @BeforeEach
+          void initIterator() {
+            iterator = hashmap.iterator();
+          }
+
+          @Test
+          void startIteration() {
+            int index = 0;
+            while (iterator.hasNext()) {
+              assertTrue(hashmap.contains(iterator.next()));
+              index ++;
+            }
+
+            assertEquals(index, hashmap.size());
           }
         }
 

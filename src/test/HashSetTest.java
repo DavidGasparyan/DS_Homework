@@ -3,6 +3,7 @@ package test;
 import main.company.SWEngineer;
 import main.company.utility.HashMap;
 import main.company.utility.HashSet;
+import main.company.utility.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -114,7 +115,8 @@ class HashSetTest {
         @BeforeEach
         void addMultipleSWE() {
           for(int i = 0; i < swArr.length; i ++) {
-            swArr[i] = new SWEngineer("1", "David", "Gasparyan", "Junior");
+            String index = Integer.toString(i);
+            swArr[i] = new SWEngineer(index, "David", "Gasparyan", "Junior");
           }
 
           for (int i = 0; i < swArr.length; i ++) {
@@ -136,6 +138,27 @@ class HashSetTest {
         void getSWEngineers() {
           for (int i = 0; i < swArr.length; i ++) {
             assertTrue(set.contains(swArr[i]));
+          }
+        }
+
+        @Nested
+        class WhenFullHashSetIteratorTest {
+          Iterator<SWEngineer> iterator;
+
+          @BeforeEach
+          void initIterator() {
+            iterator = set.iterator();
+          }
+
+          @Test
+          void startIteration() {
+            int index = 0;
+            while (iterator.hasNext()) {
+              assertTrue(set.contains(iterator.next()));
+              index ++;
+            }
+
+            assertEquals(index, set.size());
           }
         }
 

@@ -64,6 +64,10 @@ public class HashMap<K, V> implements MapADT<K, V>, Iterable<HashMap.Entry<K, V>
     return hashSet;
   }
 
+  public boolean contains(Entry<K, V> value) {
+    return bucket.containsValue(value);
+  }
+
   @Override
   public boolean isEmpty() {
     return size == 0;
