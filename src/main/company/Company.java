@@ -11,6 +11,7 @@ public class Company {
 
   public static void main(String[] args) {
     HashMap<SWEngineer, String> hashmap = new HashMap<>();
+    BinarySearchTree<Integer> tree = new BinarySearchTree<>();
 
     SWEngineer SWE1 = new SWEngineer("1", "David", "Gasparyan", "Junior");
     SWEngineer SWE2 = new SWEngineer("2", "Poxos", "Poxosyan", "Middle");
@@ -19,13 +20,44 @@ public class Company {
     SWEngineer SWE5 = new SWEngineer("5", "Aram", "Minasyan", "Junior");
     SWEngineer SWE6 = new SWEngineer("6", "Grigor", "Grigoryan", "Team Lead");
 
-    hashmap.put(SWE1, "David");
-    hashmap.put(SWE1, "David");
-    hashmap.put(SWE1, "David");
-    hashmap.put(SWE1, "Ando");
-    hashmap.put(SWE2, "Poxos");
-    hashmap.put(SWE3, "Petros");
-    hashmap.put(SWE4, "Ani");
+//    hashmap.put(SWE1, "David");
+//    hashmap.put(SWE1, "David");
+//    hashmap.put(SWE1, "David");
+//    hashmap.put(SWE1, "Ando");
+//    hashmap.put(SWE2, "Poxos");
+//    hashmap.put(SWE3, "Petros");
+//    hashmap.put(SWE4, "Ani");
+    tree.insert(11);
+    tree.insert(6);
+    tree.insert(8);
+    tree.insert(19);
+    tree.insert(4);
+    tree.insert(10);
+    tree.insert(5);
+    tree.insert(17);
+    tree.insert(43);
+    tree.insert(49);
+    tree.insert(31);
+
+//    System.out.println(tree.search(SWE1));
+
+//    tree.print();
+
+//    tree.delete(19);
+//    tree.delete(43);
+
+//    tree.print();
+
+//    System.out.println(tree.contains(10));
+//    System.out.println(tree.contains(3));
+//    System.out.println(tree.contains(4));
+
+//    Iterator<SWEngineer> inorderIterator = tree.iteratorInOrder();
+//
+//    while (inorderIterator.hasNext()) {
+//      inorderIterator.next();
+//    }
+
 
 //    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
 //

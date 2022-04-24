@@ -1,6 +1,6 @@
 package main.company;
 
-public class SWEngineer extends Employee {
+public class SWEngineer extends Employee implements Comparable<SWEngineer> {
   private String title;
 
   public SWEngineer(String id, String name, String surname) {
@@ -13,5 +13,10 @@ public class SWEngineer extends Employee {
   }
 
   public void doCoding() {
+  }
+
+  @Override
+  public int compareTo(SWEngineer o) {
+    return this.getName().compareTo(o.getName());
   }
 }
