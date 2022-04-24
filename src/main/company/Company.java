@@ -3,6 +3,8 @@ package main.company;
 // Import my implementation of a LinkedList
 import main.company.utility.*;
 
+import java.util.Comparator;
+
 public class Company {
   private LinkedList<Employee> employees = new LinkedList<>();
   private ArrayDeque<Employee> top10performers = new ArrayDeque<>();
@@ -11,7 +13,12 @@ public class Company {
 
   public static void main(String[] args) {
     HashMap<SWEngineer, String> hashmap = new HashMap<>();
-    BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+    BinarySearchTree<SWEngineer> tree = new BinarySearchTree<SWEngineer>(new Comparator<SWEngineer>() {
+      @Override
+      public int compare(SWEngineer o1, SWEngineer o2) {
+        return  o1.getSurname().compareTo(o2.getSurname());
+      }
+    });
 
     SWEngineer SWE1 = new SWEngineer("1", "David", "Gasparyan", "Junior");
     SWEngineer SWE2 = new SWEngineer("2", "Poxos", "Poxosyan", "Middle");
@@ -27,17 +34,22 @@ public class Company {
 //    hashmap.put(SWE2, "Poxos");
 //    hashmap.put(SWE3, "Petros");
 //    hashmap.put(SWE4, "Ani");
-    tree.insert(11);
-    tree.insert(6);
-    tree.insert(8);
-    tree.insert(19);
-    tree.insert(4);
-    tree.insert(10);
-    tree.insert(5);
-    tree.insert(17);
-    tree.insert(43);
-    tree.insert(49);
-    tree.insert(31);
+//    tree.insert(11);
+//    tree.insert(6);
+//    tree.insert(8);
+//    tree.insert(19);
+//    tree.insert(4);
+//    tree.insert(10);
+//    tree.insert(5);
+//    tree.insert(17);
+//    tree.insert(43);
+//    tree.insert(49);
+//    tree.insert(31);
+
+    tree.insert(SWE1);
+    tree.insert(SWE2);
+    tree.insert(SWE3);
+    tree.insert(SWE4);
 
 //    System.out.println(tree.search(SWE1));
 
@@ -52,11 +64,11 @@ public class Company {
 //    System.out.println(tree.contains(3));
 //    System.out.println(tree.contains(4));
 
-//    Iterator<SWEngineer> inorderIterator = tree.iteratorInOrder();
-//
-//    while (inorderIterator.hasNext()) {
-//      inorderIterator.next();
-//    }
+    Iterator<SWEngineer> inorderIterator = tree.iteratorInOrder();
+
+    while (inorderIterator.hasNext()) {
+      System.out.println(inorderIterator.next());
+    }
 
 
 //    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();

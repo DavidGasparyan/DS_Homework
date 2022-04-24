@@ -30,11 +30,11 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
 
   private Node<E> search(Node<E> node, E data) {
 
-    if (node == null || node.data.compareTo(data) == 0) {
+    if (node == null || comparator.compare(node.data, data) == 0) {
       return node;
     }
 
-    if (node.data.compareTo(data) < 0) {
+    if (comparator.compare(node.data, data) < 0) {
       return search(node.left, data);
     }
 
@@ -50,9 +50,9 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
       return new Node<>(data);
     }
 
-    if (node.data.compareTo(data) > 0) {
+    if (comparator.compare(node.data, data) > 0) {
       node.left = insert(node.left, data);
-    } else if (node.data.compareTo(data) < 0){
+    } else if (comparator.compare(node.data, data) < 0){
       node.right = insert(node.right, data);
     }
 
@@ -68,9 +68,9 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
       return null;
     }
 
-    if (data.compareTo(node.data) < 0) {
+    if (comparator.compare(node.data, data) < 0) {
       node.left = delete(node.left, data);
-    } else if (data.compareTo(node.data) > 0) {
+    } else if (comparator.compare(node.data, data) > 0) {
       node.right = delete(node.right, data);
     } else {
 
