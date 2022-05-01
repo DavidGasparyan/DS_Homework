@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
   Node<E> root;
-  private Comparator<E> comparator;
+  private final Comparator<E> comparator;
   int size = 0;
 
   public BinarySearchTree() {
@@ -57,6 +57,32 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
     }
 
     return node;
+  }
+
+  public void insertIterative(E data) {
+    Node<E> pointer = root;
+    Node<E> lastNode = root;
+
+    if (pointer == null) return;
+
+    while  (pointer != null) {
+
+      if (comparator.compare(pointer.data, data) < 0) {
+        lastNode = pointer;
+        pointer = pointer.right;
+      } else if (comparator.compare(pointer.data, data) > 0) {
+        lastNode = pointer;
+        pointer = pointer.left;
+      } else {
+        return;
+      }
+    }
+
+    if (comparator.compare(lastNode.data, data) > 0) {
+      lastNode.right = new Node<>(data);
+    } else {
+      lastNode.left = new Node<>(data);
+    }
   }
 
   public void delete(E data) {
@@ -123,7 +149,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
     return false;
   }
 
-  public Iterator<E> iteratorInOrder() {
+  public Iterator<E> inOrderIterator() {
     return new InOrderIterator();
   }
 

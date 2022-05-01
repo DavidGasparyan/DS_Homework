@@ -16,7 +16,14 @@ public class Company {
     BinarySearchTree<SWEngineer> tree = new BinarySearchTree<SWEngineer>(new Comparator<SWEngineer>() {
       @Override
       public int compare(SWEngineer o1, SWEngineer o2) {
-        return  o1.getSurname().compareTo(o2.getSurname());
+        return  o1.getId().compareTo(o2.getId());
+      }
+    });
+
+    BinarySearchTree<SWEngineer> tree2 = new BinarySearchTree<SWEngineer>(new Comparator<SWEngineer>() {
+      @Override
+      public int compare(SWEngineer o1, SWEngineer o2) {
+        return  o1.getId().compareTo(o2.getId());
       }
     });
 
@@ -51,6 +58,11 @@ public class Company {
     tree.insert(SWE3);
     tree.insert(SWE4);
 
+    tree2.insert(SWE1);
+    tree2.insert(SWE2);
+    tree2.insert(SWE3);
+    tree2.insert(SWE4);
+
 //    System.out.println(tree.search(SWE1));
 
 //    tree.print();
@@ -64,10 +76,18 @@ public class Company {
 //    System.out.println(tree.contains(3));
 //    System.out.println(tree.contains(4));
 
-    Iterator<SWEngineer> inorderIterator = tree.iteratorInOrder();
+    Iterator<SWEngineer> inorderIterator = tree.inOrderIterator();
 
     while (inorderIterator.hasNext()) {
       System.out.println(inorderIterator.next());
+    }
+
+    System.out.println("--------");
+
+    Iterator<SWEngineer> inorderIterator2 = tree2.inOrderIterator();
+
+    while (inorderIterator2.hasNext()) {
+      System.out.println(inorderIterator2.next());
     }
 
 
