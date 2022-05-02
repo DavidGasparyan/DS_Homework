@@ -136,7 +136,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
   }
 
   public boolean contains(E data) {
-    Iterator<E> iterator = new InOrderIterator();
+    Iterator<E> iterator = new InOrderIteratorStack();
 
     while(iterator.hasNext()) {
       E e = iterator.next();
@@ -149,8 +149,11 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
     return false;
   }
 
-  public Iterator<E> inOrderIterator() {
-    return new InOrderIterator();
+  public Iterator<E> inOrderIteratorStack() {
+    return new InOrderIteratorStack();
+  }
+  public Iterator<E> inOrderIteratorMorris() {
+    return new InOrderIteratorMorris();
   }
 
   @Override
@@ -158,10 +161,56 @@ public class BinarySearchTree<E extends Comparable<E>> implements Iterable<E> {
     return null;
   }
 
-  private class InOrderIterator implements Iterator<E> {
+  private class InOrderIteratorMorris implements Iterator<E> {
+    Node<E> pointer, rightMost;
+
+    InOrderIteratorMorris() {
+      pointer = root;
+      rightMost = null;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return pointer != null;
+    }
+
+    @Override
+    public E next() {
+      assert hasNext();
+
+      if (pointer.left == null) {
+        Node<E> temp = pointer;
+        pointer = pointer.right;
+
+        return temp.data;
+      }
+
+      rightMost = pointer.left;
+
+      while (rightMost.right != null
+        && rightMost.right != pointer)
+        rightMost = rightMost.right;
+
+      if (rightMost.right == null) {
+        rightMost.right = pointer;
+        pointer = pointer.left;
+      }
+
+      else {
+        rightMost.right = null;
+        Node<E> temp = pointer;
+        pointer = pointer.right;
+        return temp.data;
+      }
+
+      return next();
+    }
+  }
+
+  private class InOrderIteratorStack implements Iterator<E> {
     private final Stack<Node<E>> traversal;
 
-    public InOrderIterator() {
+    public InOrderIteratorStack() {
       traversal = new Stack<>();
       moveLeft(root);
     }
