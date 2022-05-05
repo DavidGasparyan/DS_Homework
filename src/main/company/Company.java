@@ -13,6 +13,8 @@ public class Company {
 
   public static void main(String[] args) {
     HashMap<SWEngineer, String> hashmap = new HashMap<>();
+    TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+
     BinarySearchTree<SWEngineer> tree = new BinarySearchTree<SWEngineer>(new Comparator<SWEngineer>() {
       @Override
       public int compare(SWEngineer o1, SWEngineer o2) {
@@ -34,74 +36,28 @@ public class Company {
     SWEngineer SWE5 = new SWEngineer("5", "Aram", "Minasyan", "Junior");
     SWEngineer SWE6 = new SWEngineer("6", "Grigor", "Grigoryan", "Team Lead");
 
-//    hashmap.put(SWE1, "David");
-//    hashmap.put(SWE1, "David");
-//    hashmap.put(SWE1, "David");
-//    hashmap.put(SWE1, "Ando");
-//    hashmap.put(SWE2, "Poxos");
-//    hashmap.put(SWE3, "Petros");
-//    hashmap.put(SWE4, "Ani");
-//    tree.insert(11);
-//    tree.insert(6);
-//    tree.insert(8);
-//    tree.insert(19);
-//    tree.insert(4);
-//    tree.insert(10);
-//    tree.insert(5);
-//    tree.insert(17);
-//    tree.insert(43);
-//    tree.insert(49);
-//    tree.insert(31);
+    treeMap.put(16, 16);
+    treeMap.put(7, 7);
+    treeMap.put(17, 17);
+    treeMap.put(19, 19);
+    treeMap.put(9, 9);
+    treeMap.put(8, 8);
+    treeMap.put(5, 5);
+    treeMap.put(6, 6);
+    treeMap.put(4, 4);
+    treeMap.put(12, 12);
+    treeMap.put(11, 11);
+    treeMap.put(10, 10);
+    treeMap.put(13, 13);
+//    treeMap.put(5, 5);
 
-    tree.insert(SWE1);
-    tree.insert(SWE2);
-    tree.insert(SWE3);
-    tree.insert(SWE4);
+    treeMap.print();
+    treeMap.remove(9);
+    System.out.println("------------");
+    treeMap.print();
+//    System.out.println(treeMap.get(8));
 
-    tree2.insert(SWE1);
-    tree2.insert(SWE2);
-    tree2.insert(SWE3);
-    tree2.insert(SWE4);
-
-//    System.out.println(tree.search(SWE1));
-
-//    tree.print();
-
-//    tree.delete(19);
-//    tree.delete(43);
-
-//    tree.print();
-
-//    System.out.println(tree.contains(10));
-//    System.out.println(tree.contains(3));
-//    System.out.println(tree.contains(4));
-
-    Iterator<SWEngineer> inorderIterator = tree.inOrderIterator();
-
-    while (inorderIterator.hasNext()) {
-      System.out.println(inorderIterator.next());
-    }
-
-    System.out.println("--------");
-
-    Iterator<SWEngineer> inorderIterator2 = tree2.inOrderIterator();
-
-    while (inorderIterator2.hasNext()) {
-      System.out.println(inorderIterator2.next());
-    }
-
-
-//    Iterator<HashMap.Entry<SWEngineer, String>> iterator = hashmap.iterator();
-//
-//    while (iterator.hasNext()) {
-//      HashMap.Entry<SWEngineer, String>item = iterator.next();
-//      System.out.println(item.getKey() + ", " + item.getValue());
-//    }
-
-//    hashmap.keySet().print();
-
-//    HashTable<Integer, String> table = new HashTable<>();
-
+//    System.out.println(treeMap.getSmallestEntry());
   }
 
   public boolean hireEmployee(Employee employee, Manager manager) {
